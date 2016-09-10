@@ -2,13 +2,15 @@
 using System.Collections;
 
 public class MovementBalloon : MonoBehaviour {
-    new Rigidbody rb;
+    Rigidbody rb;
     
     //For Changing speed of movement.
     public float movSpeed = 10.0F;
 
+    public float velCeiling = 12.0F;
+
     //Vertical Movement for 'space'
-    public float jumpPower = 0.2F;
+    public float jumpPower = 3.0F;
 
     //Variables for rotation
     public float SpeedH = 4.0f;
@@ -29,20 +31,28 @@ public class MovementBalloon : MonoBehaviour {
 
     void TheMovement()
     {
-        //Moving the balloon across the axe's
-        float horMovement = Input.GetAxis("Horizontal") * movSpeed * Time.deltaTime;
-        float verMovement = Input.GetAxis("Vertical") * movSpeed * Time.deltaTime;
+        //Forming the vector that the balloon will travel
+        var horMovement = Input.GetAxis("Horizontal") * Camera.main.transform.right;
+        var verMovement = Input.GetAxis("Vertical") * Camera.main.transform.forward;
+        var totalMovement = horMovement + verMovement;
+        totalMovement.y = 0.0F;
+        totalMovement = totalMovement.normalized * movSpeed;
 
         //Rotating balloon, only horizontal rotation
         yaw += SpeedH * Input.GetAxis("Mouse X");
+        transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
 
+        //Jumping
         if (Input.GetKeyDown(KeyCode.Space))
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
         }
 
-
-        transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
-        transform.Translate(horMovement, 0, verMovement);
+        //Adding movement forces and checking if they are too fast.
+        rb.AddForce(totalMovement, ForceMode.Force);
+        if (rb.velocity.magnitude > velCeiling)
+        {
+            rb.velocity = rb.velocity.normalized * velCeiling;
+        }
     }
 }
