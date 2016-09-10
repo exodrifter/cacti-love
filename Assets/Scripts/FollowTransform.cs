@@ -21,14 +21,22 @@ public class FollowTransform : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        //transform.LookAt(target);
-        eye.rotation = Quaternion.Slerp(eye.rotation, Quaternion.LookRotation(target.position - transform.position), rotationSpeed * Time.deltaTime);      
+        //Use an eye sub object to look at the balloon and get a vector for launching the cactus.
+        eye.rotation = Quaternion.Slerp(eye.rotation, Quaternion.LookRotation(target.position - transform.position), rotationSpeed * Time.deltaTime);    
+        
+        //Rotate the cactus to face the balloon  
         transform.LookAt(new Vector3(target.position.x, transform.position.y, target.position.z));
+
+        //Keep track of time
         elapsedTime += Time.deltaTime;
-        //transform.position += transform.forward * speed * Time.deltaTime; 
+
+        //Enough time has elapsed, then the cactus hsould jump towards the balloon
         if (elapsedTime >= jumpWaitTime)
         {
+            //Reset the elapsed time
             elapsedTime -= jumpWaitTime;
+
+            //launch the cactus rigidbody using the eye's forward vector.
             rigidbody.AddForce(eye.forward * launchForce, ForceMode.Impulse);
         }
     }
