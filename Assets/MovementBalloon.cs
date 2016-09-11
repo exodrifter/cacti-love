@@ -61,6 +61,8 @@ public class MovementBalloon : MonoBehaviour {
 		angles.y += SpeedH * Input.GetAxis("Mouse X");
 		transform.eulerAngles = angles;
 
+        movSpeed += Time.deltaTime * 0.1f;
+
         //Jumping
         if (Input.GetButton("Jump") && canJump)
         {

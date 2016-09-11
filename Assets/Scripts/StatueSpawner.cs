@@ -25,7 +25,7 @@ public class StatueSpawner : MonoBehaviour {
 
         yield return new WaitForSeconds(5);
         
-        for (int i = 0; i < 45; i++)
+        for (int i = 0; i < 100; i++)
         {
             SpawnOneStatue();
             ag.verticalJump += 0.007F;
@@ -36,7 +36,7 @@ public class StatueSpawner : MonoBehaviour {
 			ag.scanLineJitter = Mathf.Clamp(ag.scanLineJitter, 0, 0.17f);
 			ag.colorDrift = Mathf.Clamp(ag.colorDrift, 0, 0.25f);
 
-            yield return new WaitForSeconds(0.5F);
+            yield return new WaitForSeconds(0.1F);
         }
         
         for (int i = 0; i < 10; i++)
