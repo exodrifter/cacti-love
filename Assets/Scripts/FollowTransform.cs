@@ -62,7 +62,6 @@ public class FollowTransform : MonoBehaviour {
 
         if (Vector3.Distance(new Vector3(transform.position.x, path.vectorPath[currentWaypoint + 1].y, transform.position.z), path.vectorPath[currentWaypoint + 1]) <= 3f)
         {
-            Debug.Log("Increasing waypoint Index");
             currentWaypoint++;
         }
     }
@@ -72,7 +71,6 @@ public class FollowTransform : MonoBehaviour {
         jumpSound.Play();
         Vector3 force = (path.vectorPath[currentWaypoint + 1] - transform.position);
         force = Quaternion.AngleAxis(-60, transform.right) * force;
-        Debug.Log(force);
 
 
         //launch the cactus rigidbody using the eye's forward vector.
@@ -88,13 +86,16 @@ public class FollowTransform : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
         //Keep track of time
+        if(target == null)
+        {
+            return;
+        }
         elapsedTime += Time.deltaTime;
         elapsedTimeRescan += Time.deltaTime;
-        if (launchForce <= 50f)
+        if (launchForce <= 30f)
         {
             if (path != null && currentWaypoint < path.vectorPath.Count - 2)
             {
-                Debug.Log("waypoint " + currentWaypoint + " of " + path.vectorPath.Count);
                 followPathBehavior();
 
                 //Enough time has elapsed, then the cactus hsould jump towards the balloon
@@ -104,7 +105,6 @@ public class FollowTransform : MonoBehaviour {
                     elapsedTime -= jumpWaitTime;
                     jumpWaitTime = baseJumpWaitTime + Random.Range(-0.5f, 1f);
 
-                    Debug.Log("Jumping");
                     if (Vector3.Distance(target.position, transform.position) >= 2f)
                     {
                         pathJump();
@@ -126,14 +126,12 @@ public class FollowTransform : MonoBehaviour {
                     //Reset the elapsed time
                     elapsedTime -= jumpWaitTime;
                     jumpWaitTime = baseJumpWaitTime + Random.Range(-0.5f, 1f);
-
-                    Debug.Log("Jumping");
                     mindlessJump();
                 }
             }
 
 
-            if (elapsedTimeRescan >= rescanTime)
+            if (elapsedTimeRescan >= rescanTime && launchForce < 30f)
             {
                 elapsedTimeRescan -= rescanTime;
                 if (Vector3.Distance(target.position, transform.position) >= 3f)
@@ -157,7 +155,6 @@ public class FollowTransform : MonoBehaviour {
         {
             path = p;
             currentWaypoint = 0;
-            Debug.Log("Yes, path complete!");
         }
     }
 

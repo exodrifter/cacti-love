@@ -19,6 +19,10 @@ public class LaserFollow : MonoBehaviour
 
 	void Update()
 	{
+        if(player == null)
+        {
+            return;
+        }
 		var target = player.transform.position;
 		var pos = this.transform.position;
 

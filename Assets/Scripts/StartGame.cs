@@ -19,8 +19,11 @@ public class StartGame : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		if (Input.GetKeyDown(KeyCode.Space)) {
+		if (Input.GetButton("Jump")) {
 			fade.FadeOut(() => SceneManager.LoadScene("Level"));
+            FollowTransform.launchForce = 5f;
+            FollowTransform.speed = 3f;
+            FollowTransform.rotationSpeed = 3f;
 			StartCoroutine(FadeOut());
 			start.Play();
 		}

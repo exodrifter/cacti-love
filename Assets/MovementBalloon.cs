@@ -61,7 +61,7 @@ public class MovementBalloon : MonoBehaviour {
 		transform.eulerAngles = angles;
 
         //Jumping
-        if (Input.GetKeyDown(KeyCode.Space) && canJump)
+        if (Input.GetButton("Jump") && canJump)
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
             canJump = false;
