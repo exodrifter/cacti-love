@@ -8,6 +8,8 @@ public class StartGame : MonoBehaviour
 	public Fade fade;
 	public AudioSource[] sources;
 
+	public AudioSource start;
+
 	// Use this for initialization
 	void Start()
 	{
@@ -20,6 +22,7 @@ public class StartGame : MonoBehaviour
 		if (Input.GetKeyDown(KeyCode.Space)) {
 			fade.FadeOut(() => SceneManager.LoadScene("Level"));
 			StartCoroutine(FadeOut());
+			start.Play();
 		}
 	}
 
