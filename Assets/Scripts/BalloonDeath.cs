@@ -20,6 +20,8 @@ public class BalloonDeath : MonoBehaviour {
 
 			RenderSettings.skybox = deathbox;
 
+            new GameObject().AddComponent<SwitchToMainMenu>();
+
 			/*
 			MeshRenderer balloonMesh = GetComponentInChildren<MeshRenderer>();
 			balloonMesh.enabled = false;
