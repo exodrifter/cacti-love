@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections;
+using Kino;
 
 public class StatueSpawner : MonoBehaviour {
     public GameObject prefab;
     public BoxCollider collider;
     public AudioSource sound;
+    public AnalogGlitch ag;
 
 	// Use this for initialization
 	void Start () {
@@ -22,12 +24,26 @@ public class StatueSpawner : MonoBehaviour {
         sound.Play();
 
         yield return new WaitForSeconds(5);
-        for (int i = 0; i < 30; i++)
+        
+        for (int i = 0; i < 45; i++)
         {
             SpawnOneStatue();
-            yield return new WaitForSeconds(Random.Range(0.2F, 0.5F));
+            ag.verticalJump += 0.007F;
+            ag.scanLineJitter += 0.007F;
+            ag.horizontalShake += 0.007F;
+            ag.colorDrift += 0.007F;
+            yield return new WaitForSeconds(0.5F);
         }
         
+        for (int i = 0; i < 10; i++)
+        {
+            ag.verticalJump -= 0.0315F;
+            ag.scanLineJitter -= 0.0315F;
+            ag.horizontalShake -= 0.0315F;
+            ag.colorDrift -= 0.0315F;
+            yield return new WaitForSeconds(0.5F);
+        }
+
         StartCoroutine(SpawnStatues());
     }
 
