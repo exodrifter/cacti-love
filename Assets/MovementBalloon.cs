@@ -3,7 +3,7 @@ using System.Collections;
 
 public class MovementBalloon : MonoBehaviour {
     Rigidbody rb;
-    
+
     //For Changing speed of movement.
     public float movSpeed = 10.0F;
 
@@ -11,6 +11,9 @@ public class MovementBalloon : MonoBehaviour {
 
     //Vertical Movement for 'space'
     public float jumpPower = 3.0F;
+    bool canJump = true;
+    public float cooldown = 1.30F;
+    float jumpCooldown;
 
     //Variables for rotation
     public float SpeedH = 4.0f;
@@ -20,12 +23,23 @@ public class MovementBalloon : MonoBehaviour {
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        jumpCooldown = cooldown;
     }
 
     // Update is called once per frame
     void Update()
     {
         TheMovement();
+
+        //Jumping timer
+        if (!canJump)
+        {
+            jumpCooldown -= Time.deltaTime;
+            if (jumpCooldown < 0)
+            {
+                canJump = true;
+            }
+        }
     }
 
     void TheMovement()
@@ -43,9 +57,11 @@ public class MovementBalloon : MonoBehaviour {
 		transform.eulerAngles = angles;
 
         //Jumping
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) && canJump)
         {
             rb.AddForce(Vector3.up * jumpPower, ForceMode.Impulse);
+            canJump = false;
+            jumpCooldown = cooldown;
         }
 
         //Adding movement forces and checking if they are too fast.
