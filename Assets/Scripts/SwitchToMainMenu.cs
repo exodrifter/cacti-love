@@ -11,7 +11,7 @@ public class SwitchToMainMenu : MonoBehaviour {
 
     IEnumerator LoadStart()
     {
-        yield return new WaitForSeconds(4);
+        yield return new WaitForSeconds(3);
         SceneManager.LoadScene("Main");
     }
 }

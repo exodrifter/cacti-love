@@ -4,11 +4,14 @@ using System.Collections;
 
 public class GameTimer : MonoBehaviour
 {
-	private float highscore = 0;
+	private static float highscore = 0;
 
 	Text text;
 
 	public bool record = true;
+	public bool best = false;
+
+	private float time = 0;
 
 	// Use this for initialization
 	void Start()
@@ -19,9 +22,11 @@ public class GameTimer : MonoBehaviour
 	// Update is called once per frame
 	void Update()
 	{
-		var time = Time.timeSinceLevelLoad;
-
-		if (record) {
+		if (best) {
+			text.text = "HIGH SCORE: " + highscore.ToString("n2");
+		}
+		else if (record) {
+			time = Time.timeSinceLevelLoad;
 			text.text = time.ToString("n2");
 		}
 		else {
