@@ -15,7 +15,6 @@ public class MovementBalloon : MonoBehaviour {
     //Variables for rotation
     public float SpeedH = 4.0f;
     public float SpeedV = 4.0f;
-    public float yaw = 0.0f;
 
     // Use this for initialization
     void Start()
@@ -39,8 +38,9 @@ public class MovementBalloon : MonoBehaviour {
         totalMovement = totalMovement.normalized * movSpeed;
 
         //Rotating balloon, only horizontal rotation
-        yaw += SpeedH * Input.GetAxis("Mouse X");
-        transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
+		var angles = transform.eulerAngles;
+		angles.y += SpeedH * Input.GetAxis("Mouse X");
+		transform.eulerAngles = angles;
 
         //Jumping
         if (Input.GetKeyDown(KeyCode.Space))
