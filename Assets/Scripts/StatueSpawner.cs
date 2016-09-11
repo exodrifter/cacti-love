@@ -20,6 +20,7 @@ public class StatueSpawner : MonoBehaviour {
 
     IEnumerator SpawnStatues()
     {
+        yield return new WaitForSeconds(Random.Range(25F, 35F));
         sound.Play();
 
         yield return new WaitForSeconds(5);
@@ -51,6 +52,7 @@ public class StatueSpawner : MonoBehaviour {
             yield return new WaitForSeconds(0.5F);
         }
 
+        StartCoroutine(SpawnStatues());
     }
 
     void SpawnOneStatue()
