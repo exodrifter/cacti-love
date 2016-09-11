@@ -7,6 +7,7 @@ public class BalloonDeath : MonoBehaviour {
 	public AudioSource music;
 
 	public Material deathbox;
+	public GameTimer timer;
 
 	// collision detection with cactus
 	void OnCollisionEnter(Collision col) {
@@ -20,6 +21,7 @@ public class BalloonDeath : MonoBehaviour {
 
 			RenderSettings.skybox = deathbox;
 
+			timer.record = false;
             new GameObject().AddComponent<SwitchToMainMenu>();
 
 			/*
