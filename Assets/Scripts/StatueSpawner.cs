@@ -4,6 +4,7 @@ using System.Collections;
 public class StatueSpawner : MonoBehaviour {
     public GameObject prefab;
     public BoxCollider collider;
+    public AudioSource sound;
 
 	// Use this for initialization
 	void Start () {
@@ -17,8 +18,11 @@ public class StatueSpawner : MonoBehaviour {
 
     IEnumerator SpawnStatues()
     {
+        yield return new WaitForSeconds(Random.Range(25F, 35F));
+        sound.Play();
+
         yield return new WaitForSeconds(5);
-        for (int i = 0; i < 7; i++)
+        for (int i = 0; i < 30; i++)
         {
             SpawnOneStatue();
             yield return new WaitForSeconds(Random.Range(0.2F, 0.5F));
