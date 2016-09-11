@@ -33,17 +33,20 @@ public class FollowTransform : MonoBehaviour {
     // Use this for initialization
     void Start () {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
-        target = player.GetComponent<Transform>();
-        rigidbody = GetComponent<Rigidbody>();
-        jumpSound = GetComponent<AudioSource>();
+        if(player != null)
+        {
+            target = player.GetComponent<Transform>();
+            rigidbody = GetComponent<Rigidbody>();
+            jumpSound = GetComponent<AudioSource>();
 
-        //Pathfinding Seeker makes the path
-        seeker = GetComponent<Seeker>();
+            //Pathfinding Seeker makes the path
+            seeker = GetComponent<Seeker>();
 
-        seeker.pathCallback += OnPathComplete;
+            seeker.pathCallback += OnPathComplete;
 
-        //Pathfinding start the pathfinding;
-        seeker.StartPath(transform.position, target.position);
+            //Pathfinding start the pathfinding;
+            seeker.StartPath(transform.position, target.position);
+        }
     }
 	
     void mindlessJumpBehavior()
