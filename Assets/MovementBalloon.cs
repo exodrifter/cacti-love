@@ -30,7 +30,11 @@ public class MovementBalloon : MonoBehaviour {
     void Update()
     {
         TheMovement();
-
+        cooldown -= 0.3f / 60f * Time.deltaTime;
+        if(cooldown < 1.0f)
+        {
+            cooldown = 1.0f;
+        }
         //Jumping timer
         if (!canJump)
         {

@@ -12,11 +12,11 @@ public class Cactronomocon : MonoBehaviour {
     public float startStrengthIncreaseDelay = 60f;
     float strengthIncreaseDelay = 5f;
     float nextStrengthIncrease = 0f;
-    public float spawnFrequencyMinutes = 200f;
+    public float spawnFrequencyMinutes = 3f;
     public float nextSpawnTime = 0f;
     public int maxCacti = 100;
     public int cacti = 1;
-    private int strengthCactiIncreaseCountDelay = 5;
+    private float strengthCactiIncreaseCountDelay = 5f;
 
     // Use this for initialization
     void Start () {
@@ -53,10 +53,10 @@ public class Cactronomocon : MonoBehaviour {
             }      
             if(elapsedTime >= startStrengthIncreaseDelay)
             {
-                if (cacti > strengthCactiIncreaseCountDelay)
+                if (cacti > nextStrengthIncrease && elapsedTime >= nextStrengthIncrease)
                 {
 
-                    nextStrengthIncrease = elapsedTime + strengthIncreaseDelay;
+                    nextStrengthIncrease = elapsedTime + strengthCactiIncreaseCountDelay;
                     FollowTransform.launchForce += 1f;
                     if (FollowTransform.launchForce > 50f)
                     {
