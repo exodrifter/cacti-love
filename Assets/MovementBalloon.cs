@@ -24,6 +24,7 @@ public class MovementBalloon : MonoBehaviour {
     {
         rb = GetComponent<Rigidbody>();
         jumpCooldown = cooldown;
+        Cursor.visible = false;
     }
 
     // Update is called once per frame

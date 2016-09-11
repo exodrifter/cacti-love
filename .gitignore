@@ -2,6 +2,7 @@
 /obj/
 /Temp/
 /.vs/
+/Builds/
 
 /*.csproj
 /*.sln
