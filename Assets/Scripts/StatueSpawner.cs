@@ -20,7 +20,6 @@ public class StatueSpawner : MonoBehaviour {
 
     IEnumerator SpawnStatues()
     {
-        yield return new WaitForSeconds(Random.Range(25F, 35F));
         sound.Play();
 
         yield return new WaitForSeconds(5);
@@ -30,12 +29,10 @@ public class StatueSpawner : MonoBehaviour {
             SpawnOneStatue();
             ag.verticalJump += 0.007F;
             ag.scanLineJitter += 0.007F;
-            ag.horizontalShake += 0.007F;
             ag.colorDrift += 0.007F;
 
 			ag.verticalJump = Mathf.Clamp(ag.verticalJump, 0, 0.05f);
 			ag.scanLineJitter = Mathf.Clamp(ag.scanLineJitter, 0, 0.17f);
-			ag.horizontalShake = Mathf.Clamp(ag.horizontalShake, 0, 0.05f);
 			ag.colorDrift = Mathf.Clamp(ag.colorDrift, 0, 0.25f);
 
             yield return new WaitForSeconds(0.5F);
@@ -45,18 +42,15 @@ public class StatueSpawner : MonoBehaviour {
         {
             ag.verticalJump -= 0.0315F;
             ag.scanLineJitter -= 0.0315F;
-            ag.horizontalShake -= 0.0315F;
             ag.colorDrift -= 0.0315F;
 
 			ag.verticalJump = Mathf.Clamp(ag.verticalJump, 0, 0.05f);
 			ag.scanLineJitter = Mathf.Clamp(ag.scanLineJitter, 0, 0.17f);
-			ag.horizontalShake = Mathf.Clamp(ag.horizontalShake, 0, 0.05f);
 			ag.colorDrift = Mathf.Clamp(ag.colorDrift, 0, 0.25f);
 
             yield return new WaitForSeconds(0.5F);
         }
 
-        StartCoroutine(SpawnStatues());
     }
 
     void SpawnOneStatue()

@@ -57,7 +57,7 @@ public class Cactronomocon : MonoBehaviour {
                 {
 
                     nextStrengthIncrease = elapsedTime + strengthCactiIncreaseCountDelay;
-                    FollowTransform.launchForce += 1f;
+                    FollowTransform.launchForce += 5f;
                     if (FollowTransform.launchForce > 50f)
                     {
                         FollowTransform.speed += 3f;
